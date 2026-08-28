@@ -99,7 +99,6 @@ def main():
     evaptrans = np.zeros((num_tsteps, nz, ny, nx))
     sub_storage = np.zeros((num_tsteps, nz, ny, nx))
     swe = np.zeros((num_tsteps, ny, nx))
-    wtd = np.zeros((num_tsteps, ny, nx))
     surf_storage = np.zeros((num_tsteps, ny, nx))
 
     
@@ -125,7 +124,6 @@ def main():
             swe[t, :, :]  = data.clm_output('swe_out')
             evaptrans[t,:,:,:] = read_pfb(os.path.join(run_path, f"{args.runname}.out.evaptrans.{t:05d}.pfb"))
             
-            wtd[t, :, :] = data.wtd
             
     np.save(os.path.join(args.out_path, 'infil.npy'), infil)
     np.save(os.path.join(args.out_path, 'et.npy'), et)
@@ -133,7 +131,6 @@ def main():
     np.save(os.path.join(args.out_path, 'swe.npy'), swe)
     np.save(os.path.join(args.out_path, 'sub_storage.npy'), sub_storage)
     np.save(os.path.join(args.out_path, 'evaptrans.npy'), evaptrans)
-    np.save(os.path.join(args.out_path, 'wtd.npy'), wtd)
     np.save(os.path.join(args.out_path, 'surf_storage.npy'), surf_storage)
 
 
