@@ -12,15 +12,7 @@ Add 1.5 deg to the forcing and update SPFH
 """
 
 def temp_adjustment(og_temp,deg_increase): 
-   
-    """
-    forcing_input:     .pfb already read in as an array, (24,nx,ny) 
-    deg_increase: how many degrees to add
-    
-    returns: 
-    new_temp:          24? by nx by ny array of adjusted temperature
-    """
-    # og_temp = read_pfb(forcing_input)
+
     new_temp = og_temp.copy()
     
     for layer in range(og_temp.shape[0]): # loop over each hour
@@ -31,16 +23,7 @@ def temp_adjustment(og_temp,deg_increase):
     return new_temp
 
 def relative_humidity(T_og_array, SH_og_array, press_array): 
-    """
-    
-    returns: 
-    RH_array:          an nx by ny array of relative humidity values for each cell in domain   
-    """
-     
-    # press_array = read_pfb(press)
-    # SH_og_array = read_pfb(SH_og)
-    # T_og_array = read_pfb(T_og)
- 
+
     if np.any(press_array== 0):
         raise SystemExit('ZERO value in press_array!')
     if np.isnan(press_array).any():
@@ -68,13 +51,7 @@ def relative_humidity(T_og_array, SH_og_array, press_array):
     return RH_array
 
 def specific_humidity(RH_array,press_array,T_new_array): 
-    """
-    returns: 
-    SH_new:   nx by ny array of adjusted specific humidity values, given new temperature values
-    
-    """
-    # T_new_array = read_pfb(T_new)
-    # press_array = read_pfb(press) 
+
     shape = T_new_array.shape # shape[0] should be 24 layers 
     
     
@@ -88,7 +65,6 @@ def specific_humidity(RH_array,press_array,T_new_array):
     
     for layer in range(shape[0]):
         log_argument = (17.67*(T_new_array[layer] - 273.15)) / (T_new_array[layer] - 29.65)
-#         print(layer, "\n",log_argument)
         SH_new_array[layer] = (RH_array[layer]/(0.263*press_array[layer])) * np.exp(log_argument)
         
     if (SH_new_array.shape != press_array.shape):
