@@ -100,7 +100,7 @@ def main():
     sub_storage = np.zeros((num_tsteps, nz, ny, nx))
     swe = np.zeros((num_tsteps, ny, nx))
     surf_storage = np.zeros((num_tsteps, ny, nx))
-
+    soil_evap = np.zeros((num_tsteps, ny, nx))
     
     # for subsurface storage calc
     press_files = sorted(glob(f'{run_path}/{args.runname}*out.press*.pfb'))
@@ -123,7 +123,7 @@ def main():
             tran[t, :, :] = data.clm_output('qflx_tran_veg') *3600 # mm/hr
             swe[t, :, :]  = data.clm_output('swe_out')
             evaptrans[t,:,:,:] = read_pfb(os.path.join(run_path, f"{args.runname}.out.evaptrans.{t:05d}.pfb"))
-            
+            soil_evap[t, :, :] = data.clm_output('qflx_evap_soi') *3600 # mm/hr
             
     np.save(os.path.join(args.out_path, 'infil.npy'), infil)
     np.save(os.path.join(args.out_path, 'et.npy'), et)
@@ -132,7 +132,7 @@ def main():
     np.save(os.path.join(args.out_path, 'sub_storage.npy'), sub_storage)
     np.save(os.path.join(args.out_path, 'evaptrans.npy'), evaptrans)
     np.save(os.path.join(args.out_path, 'surf_storage.npy'), surf_storage)
-
+    np.save(os.path.join(args.out_path, 'soil_evap.npy'), soil_evap)
 
 if __name__ == "__main__":
     main()
