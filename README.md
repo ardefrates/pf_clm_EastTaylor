@@ -1,4 +1,4 @@
-# Code and model I/O for PF-CLM East Taylor Watershed analysis
+# Code and model I/O for "Modeled reconfiguration of root water uptake amplifies warming-induced subsurface storage depletion in a high elevation catchment"
 
 ### pfclm_inputs: Scripts and files for running PF-CLM over the East Taylor
 adjust_forcing.py: Increasing temperature by 1.5 degrees Celsius and adjusting specific humidity accordingly using the Magnus-Tetens equation for saturation vapor pressure
@@ -15,9 +15,16 @@ Because 4D numpy arrays for subsurface storage and evaptrans PF-CLM output (whic
 
 save_pf_output.py: Script for saving out .npy files from PF-CLM runs.
 
-### analysis/* scripts used to produce figures and analysis in the study
-assess_spinup.ipynb: analysis for assessing normalized storage change over each run of spinup, and residual storage change from the final cycle.
+### analysis/* scripts used to produce figures / analyses
+main_figures.ipynb: creation of figures for the main text of the paper.
 
-model_validation.ipynb: comparison of PF-CLM output against data from an Eddy Covariance Tower. This in-situ data can be found at https://doi.org/10.15485/3004241.
+##### SI analyses:
+assess_spinup.ipynb: assessing normalized storage change over each run of spinup, and residual storage change from the final cycle
 
-paper_figures.ipynb: creation of figures for the main text of the paper.
+model_validation.ipynb: comparison of PF-CLM output against data from an Eddy Covariance Tower. This in-situ data can be found at https://doi.org/10.15485/3004241
+
+lateral_flow_analysis.ipynb: calculating the effects of lateral flow on subsurface storage during the study period 
+
+overland_flow.ipynb: assessing the effect of warming and water uptake formulation on basin outflow
+
+snowpack_response.ipynb: determining the effect of warming on peak SWE, snow free day, and start of summer subsurface storage
